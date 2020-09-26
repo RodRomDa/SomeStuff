@@ -2,33 +2,33 @@
 #include <string>
 
 /*
-	Интерфейс для различных вариантов хеш-таблиц
+	РРЅС‚РµСЂС„РµР№СЃ РґР»СЏ СЂР°Р·Р»РёС‡РЅС‹С… РІР°СЂРёР°РЅС‚РѕРІ С…РµС€-С‚Р°Р±Р»РёС†
 */
 class HashTable_Interface {
 public:
-	//Добавление записи
+	//Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РїРёСЃРё
 	virtual bool insert(const std::string& key, const std::string& value) = 0;
 
-	//Проверка наличия записи
+	//РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Р·Р°РїРёСЃРё
 	virtual bool lookup(const std::string& key) = 0;
 
-	//Получение записи
+	//РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїРёСЃРё
 	virtual std::string& get(const std::string& key) = 0;
 
-	//Удаление записи
+	//РЈРґР°Р»РµРЅРёРµ Р·Р°РїРёСЃРё
 	virtual void remove(const std::string& key) = 0;
 
-	//Степень заполненности
+	//РЎС‚РµРїРµРЅСЊ Р·Р°РїРѕР»РЅРµРЅРЅРѕСЃС‚Рё
 	virtual double LoadFactor() const = 0;
 
-	//Получение размера таблицы
+	//РџРѕР»СѓС‡РµРЅРёРµ СЂР°Р·РјРµСЂР° С‚Р°Р±Р»РёС†С‹
 	virtual size_t GetSize() const = 0;
 
-	//Сбор статистики
+	//РЎР±РѕСЂ СЃС‚Р°С‚РёСЃС‚РёРєРё
 
-	//Кол. проб при поиске
+	//РљРѕР». РїСЂРѕР± РїСЂРё РїРѕРёСЃРєРµ
 	virtual int SearchProbe() const = 0;
-	//Кол. проб при вставке
+	//РљРѕР». РїСЂРѕР± РїСЂРё РІСЃС‚Р°РІРєРµ
 	virtual int LoadProbe() const = 0;
 
 	virtual ~HashTable_Interface() = default;
