@@ -14,7 +14,7 @@ QuadraticHashTable::~QuadraticHashTable() {
 }
 
 uint16_t QuadraticHashTable::hash_int(uint16_t x) {
-	//Заменили mod и div на сдвиг.
+	//Р—Р°РјРµРЅРёР»Рё mod Рё div РЅР° СЃРґРІРёРі.
 	return (uint16_t)(x * UINT16_C(40503)) >> (16 - size_log);
 }
 
@@ -23,7 +23,7 @@ uint16_t QuadraticHashTable::hash_str(const string& key) {
 	const uint16_t* ptr = (const uint16_t*)key.c_str();
 	while (*ptr) {
 		temp ^= *ptr;
-		//циклический сдвиг на один разряд влево
+		//С†РёРєР»РёС‡РµСЃРєРёР№ СЃРґРІРёРі РЅР° РѕРґРёРЅ СЂР°Р·СЂСЏРґ РІР»РµРІРѕ
 		temp & 0x8000 ? (temp <<= 1)++ : temp <<= 1;
 		ptr++;
 	}
@@ -32,14 +32,14 @@ uint16_t QuadraticHashTable::hash_str(const string& key) {
 
 bool QuadraticHashTable::insert(const string& key, const string& value) {
 	size_t i = hash_str(key), d = 1;
-	//Для подсчёта среднего числа проб
+	//Р”Р»СЏ РїРѕРґСЃС‡С‘С‚Р° СЃСЂРµРґРЅРµРіРѕ С‡РёСЃР»Р° РїСЂРѕР±
 	load_probe = 1;
 	while (table[i].state & 1) {
 		i += d;
 		d += 2;
 		if (i >= table_size)
 			i -= table_size;
-		//Если шаг наращения стал слишком большим - останавливаем вставку
+		//Р•СЃР»Рё С€Р°Рі РЅР°СЂР°С‰РµРЅРёСЏ СЃС‚Р°Р» СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РёРј - РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІСЃС‚Р°РІРєСѓ
 		if (i >= table_size) {
 			return false;
 		}
@@ -65,7 +65,7 @@ string& QuadraticHashTable::get(const string& key) {
 void QuadraticHashTable::remove(const string& key) {
 	int i = _GetIndex(key);
 	if (i != -1) {
-		//Запись удалена
+		//Р—Р°РїРёСЃСЊ СѓРґР°Р»РµРЅР°
 		table[i].state = 2;
 		load--;
 	}
@@ -73,21 +73,21 @@ void QuadraticHashTable::remove(const string& key) {
 
 int QuadraticHashTable::_GetIndex(const string& key) {
 	size_t i = hash_str(key), d = 1;
-	//Для подсчёта среднего числа проб
+	//Р”Р»СЏ РїРѕРґСЃС‡С‘С‚Р° СЃСЂРµРґРЅРµРіРѕ С‡РёСЃР»Р° РїСЂРѕР±
 	search_probe = 1;
-	//Ищем запись методом квадратичных проб, пропускаем удалённые
+	//РС‰РµРј Р·Р°РїРёСЃСЊ РјРµС‚РѕРґРѕРј РєРІР°РґСЂР°С‚РёС‡РЅС‹С… РїСЂРѕР±, РїСЂРѕРїСѓСЃРєР°РµРј СѓРґР°Р»С‘РЅРЅС‹Рµ
 	while (table[i].state && ((table[i].state == 2) || (key != table[i].key))) {
 		i += d;
 		d += 2;
 		if (i >= table_size)
 			i -= table_size;
-		//Если шаг наращения стал слишком большим - останавливаем поиск
+		//Р•СЃР»Рё С€Р°Рі РЅР°СЂР°С‰РµРЅРёСЏ СЃС‚Р°Р» СЃР»РёС€РєРѕРј Р±РѕР»СЊС€РёРј - РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕРёСЃРє
 		if (i >= table_size) {
 			return -1;
 		}
 		search_probe++;
 	}
-	//Если ячейка заполнена - то нашли
+	//Р•СЃР»Рё СЏС‡РµР№РєР° Р·Р°РїРѕР»РЅРµРЅР° - С‚Рѕ РЅР°С€Р»Рё
 	if (table[i].state == 1) {
 		return i;
 	}

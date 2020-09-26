@@ -52,7 +52,7 @@ int ConsoleDialog::_GetTableIndex(std::string name) {
 }
 
 void ConsoleDialog::_PrintCommands() {
-	cout << "Äîñòóïíûå êîìàíäû:\n";
+	cout << "Ð”Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ðµ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹:\n";
 	int i = 0;
 	while (command_list[i].name.length()) {
 		cout << command_list[i].name << " - ";
@@ -68,7 +68,7 @@ void ConsoleDialog::_PrintDes(int i, ostream& out) {
 }
 
 void ConsoleDialog::_PrintAllDes() {
-	cout << "Âàðèàíòû õåø-òàáëèö:\n";
+	cout << "Ð’Ð°Ñ€Ð¸Ð°Ð½Ñ‚Ñ‹ Ñ…ÐµÑˆ-Ñ‚Ð°Ð±Ð»Ð¸Ñ†:\n";
 	for (int i = 0; i < settings.tables_count; i++) {
 		_PrintDes(i);
 		cout << '\n';
@@ -77,15 +77,15 @@ void ConsoleDialog::_PrintAllDes() {
 
 void ConsoleDialog::Run() {
 	setlocale(LC_ALL, "Rus");
-	cout << "Ëàáîðàòîðíàÿ ðàáîòà ¹4\n";
-	cout << "Ïî êóðñó Ñòðóêòóðû è àëãîðèòìû îáðàáîòêè äàííûõ\n";
-	cout << "Âûïîëíèë ñòóäåíò ãðóïïû ÊÒáî2-6\n";
-	cout << "Äàâèäåíêî Ðîäèîí Ðîìàíîâè÷\n\n";
+	cout << "Ð›Ð°Ð±Ð¾Ñ€Ð°Ñ‚Ð¾Ñ€Ð½Ð°Ñ Ñ€Ð°Ð±Ð¾Ñ‚Ð° â„–4\n";
+	cout << "ÐŸÐ¾ ÐºÑƒÑ€ÑÑƒ Ð¡Ñ‚Ñ€ÑƒÐºÑ‚ÑƒÑ€Ñ‹ Ð¸ Ð°Ð»Ð³Ð¾Ñ€Ð¸Ñ‚Ð¼Ñ‹ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð´Ð°Ð½Ð½Ñ‹Ñ…\n";
+	cout << "Ð’Ñ‹Ð¿Ð¾Ð»Ð½Ð¸Ð» ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ ÐšÐ¢Ð±Ð¾2-6\n";
+	cout << "Ð”Ð°Ð²Ð¸Ð´ÐµÐ½ÐºÐ¾ Ð Ð¾Ð´Ð¸Ð¾Ð½ Ð Ð¾Ð¼Ð°Ð½Ð¾Ð²Ð¸Ñ‡\n\n";
 
 	_PrintCommands();
 	string command;
 	HashTable_Tester tester(settings.source);
-	//Êîíñîëüíûé öèêë
+	//ÐšÐ¾Ð½ÑÐ¾Ð»ÑŒÐ½Ñ‹Ð¹ Ñ†Ð¸ÐºÐ»
 	while (true) {
 		std::stringstream command_line;
 		cin >> command;
@@ -101,12 +101,12 @@ void ConsoleDialog::Run() {
 							if (command == "tables") {
 								_PrintAllDes();
 							} else if (command == "settings") {
-								cout << "Óñòàíîâëåííûå íàñòðîéêè:\n";
-								cout << "Ðàçìåð õåø-òàáëèö \n\
+								cout << "Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½Ð½Ñ‹Ðµ Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸:\n";
+								cout << "Ð Ð°Ð·Ð¼ÐµÑ€ Ñ…ÐµÑˆ-Ñ‚Ð°Ð±Ð»Ð¸Ñ† \n\
     TableSize = " << settings.table_size << '\n';
-								cout << "Èñòî÷íèê äàííûõ äëÿ òåñòèðîâàíèÿ \n\
+								cout << "Ð˜ÑÑ‚Ð¾Ñ‡Ð½Ð¸Ðº Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð´Ð»Ñ Ñ‚ÐµÑÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ \n\
     FileSourceData = " << settings.source << '\n';
-								cout << "Ôàéë, êóäà âûâîäèòñÿ îò÷¸ò \n\
+								cout << "Ð¤Ð°Ð¹Ð», ÐºÑƒÐ´Ð° Ð²Ñ‹Ð²Ð¾Ð´Ð¸Ñ‚ÑÑ Ð¾Ñ‚Ñ‡Ñ‘Ñ‚ \n\
     FileOutputData = " << ((settings.output.length()) ? settings.output : "CONSOLE") << '\n';
 							} else throw 1;
 						}
@@ -171,7 +171,7 @@ void ConsoleDialog::Run() {
 		catch (int error) {
 			switch (error) {
 				case 1:
-					cout << "Íåâåðíûé ñèíòàêñèñ ââåä¸ííîé êîìàíäû\n";
+					cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ ÑÐ¸Ð½Ñ‚Ð°ÐºÑÐ¸Ñ Ð²Ð²ÐµÐ´Ñ‘Ð½Ð½Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹\n";
 				break;
 			}
 		}

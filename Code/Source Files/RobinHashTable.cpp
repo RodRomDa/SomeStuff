@@ -15,7 +15,7 @@ RobinHashTable::~RobinHashTable(){
 
 
 uint32_t RobinHashTable::hash_int(uint32_t x) const{
-	//Заменили mod и div на сдвиг.
+	//Р—Р°РјРµРЅРёР»Рё mod Рё div РЅР° СЃРґРІРёРі.
 	return (uint32_t)(x * 2654435769u) >> (32 - size_log);
 }
 
@@ -44,10 +44,10 @@ bool RobinHashTable::insert(const string& key, const string& value) {
 				entry.probe_length++;
 				i++;
 				if (i == table_size) {
-					i = 0; //возвращаемся в начало таблицы
+					i = 0; //РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РЅР°С‡Р°Р»Рѕ С‚Р°Р±Р»РёС†С‹
 				}
 				if (i == i0) {
-					return false; //не нашли свободное место
+					return false; //РЅРµ РЅР°С€Р»Рё СЃРІРѕР±РѕРґРЅРѕРµ РјРµСЃС‚Рѕ
 				}
 			}
 			table[i].swap(entry);
@@ -103,7 +103,7 @@ int RobinHashTable::_GetIndex(const string& key) {
 		search_probe++;
 		i++;
 		if (i == table_size) {
-			i = 0; //Возвращаемся в начало таблицы
+			i = 0; //Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РЅР°С‡Р°Р»Рѕ С‚Р°Р±Р»РёС†С‹
 		}
 		offset++;
 	}

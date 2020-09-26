@@ -23,7 +23,7 @@ uint32_t LinearHashTable::hash_str(const string& key) {
 bool LinearHashTable::insert(const string& key, const string& value) {
 	size_t i0 = hash_str(key);
 	size_t i = i0;
-	//Для подсчёта среднего числа проб
+	//Р”Р»СЏ РїРѕРґСЃС‡С‘С‚Р° СЃСЂРµРґРЅРµРіРѕ С‡РёСЃР»Р° РїСЂРѕР±
 	load_probe = 1;
 	while (table[i].state & 1) {
 		i++;
@@ -53,7 +53,7 @@ string& LinearHashTable::get(const string& key) {
 void LinearHashTable::remove(const string& key) {
 	int i = _GetIndex(key);
 	if (i != -1) {
-		//Запись удалена
+		//Р—Р°РїРёСЃСЊ СѓРґР°Р»РµРЅР°
 		table[i].state = 2;
 		load--;
 	}
@@ -62,9 +62,9 @@ void LinearHashTable::remove(const string& key) {
 int LinearHashTable::_GetIndex(const string& key) {
 	size_t i0 = hash_str(key);
 	size_t i = i0;
-	//Для подсчёта среднего числа проб
+	//Р”Р»СЏ РїРѕРґСЃС‡С‘С‚Р° СЃСЂРµРґРЅРµРіРѕ С‡РёСЃР»Р° РїСЂРѕР±
 	search_probe = 1;
-	//Ищем запись методом линейных проб, пропускаем удалённые
+	//РС‰РµРј Р·Р°РїРёСЃСЊ РјРµС‚РѕРґРѕРј Р»РёРЅРµР№РЅС‹С… РїСЂРѕР±, РїСЂРѕРїСѓСЃРєР°РµРј СѓРґР°Р»С‘РЅРЅС‹Рµ
 	while (table[i].state&&((table[i].state == 2)||(table[i].key != key))) {
 		i++;
 		if (i >= table_size) {
@@ -75,7 +75,7 @@ int LinearHashTable::_GetIndex(const string& key) {
 		}
 		search_probe++;
 	}
-	//Если ячейка заполнена - то нашли
+	//Р•СЃР»Рё СЏС‡РµР№РєР° Р·Р°РїРѕР»РЅРµРЅР° - С‚Рѕ РЅР°С€Р»Рё
 	if (table[i].state == 1) {
 		return i;
 	}

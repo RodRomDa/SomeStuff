@@ -32,16 +32,16 @@ bool HashTable_Tester::Open(string file_name) {
 }
 
 void HashTable_Tester::Test(HashTable_Interface& table, size_t factors_count, const double factors[], std::ostream& output) {
-	//Установка seed'а для rand
+	//РЈСЃС‚Р°РЅРѕРІРєР° seed'Р° РґР»СЏ rand
 	srand(steady_clock::now().time_since_epoch().count());
 
-	//Сохраняем состояние потока
-	//перед изменением
+	//РЎРѕС…СЂР°РЅСЏРµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РїРѕС‚РѕРєР°
+	//РїРµСЂРµРґ РёР·РјРµРЅРµРЅРёРµРј
 	std::ios output_state(nullptr);
 	output_state.copyfmt(output);
 	setlocale(LC_ALL, "Rus");
-	output << "Степень   |     Кол. поисков      |             Среднее число проб               |   Среднее затраченное время (ms)  |\n";
-	output << "заполнения|   Удачи   |  Неудачи  | При добавлении |   При удаче  | При неудаче  | На одно добаление | На один поиск |\n";
+	output << "РЎС‚РµРїРµРЅСЊ   |     РљРѕР». РїРѕРёСЃРєРѕРІ      |             РЎСЂРµРґРЅРµРµ С‡РёСЃР»Рѕ РїСЂРѕР±               |   РЎСЂРµРґРЅРµРµ Р·Р°С‚СЂР°С‡РµРЅРЅРѕРµ РІСЂРµРјСЏ (ms)  |\n";
+	output << "Р·Р°РїРѕР»РЅРµРЅРёСЏ|   РЈРґР°С‡Рё   |  РќРµСѓРґР°С‡Рё  | РџСЂРё РґРѕР±Р°РІР»РµРЅРёРё |   РџСЂРё СѓРґР°С‡Рµ  | РџСЂРё РЅРµСѓРґР°С‡Рµ  | РќР° РѕРґРЅРѕ РґРѕР±Р°Р»РµРЅРёРµ | РќР° РѕРґРёРЅ РїРѕРёСЃРє |\n";
 	output << std::fixed;
 
 	for (int i = 0; i < factors_count; i++) {
@@ -49,22 +49,22 @@ void HashTable_Tester::Test(HashTable_Interface& table, size_t factors_count, co
 		string* buffer = new string[2 * portion_size];
 		_MakePortion(portion_size, buffer);
 
-		//Вставка
+		//Р’СЃС‚Р°РІРєР°
 		long long int LoadProbeCount = 0;
-		//Начало счётчика
+		//РќР°С‡Р°Р»Рѕ СЃС‡С‘С‚С‡РёРєР°
 		high_resolution_clock::time_point Start = high_resolution_clock::now();
 		for (int i = 0; i < portion_size; i++) {
 			table.insert(buffer[i], "Some value");
 			LoadProbeCount += table.LoadProbe();
 		}
-		//Конец счётчика
+		//РљРѕРЅРµС† СЃС‡С‘С‚С‡РёРєР°
 		high_resolution_clock::time_point End = high_resolution_clock::now();
 		double dur_insert = duration_cast<microseconds>(End - Start).count() / (double)portion_size / 1000;
 
-		//Поиск
+		//РџРѕРёСЃРє
 		long long int GoodProbeCount = 0, BadProbeCount = 0;
 		int bad_iter = portion_size;
-		//Начало счётчика
+		//РќР°С‡Р°Р»Рѕ СЃС‡С‘С‚С‡РёРєР°
 		Start = high_resolution_clock::now();
 		for (int i = 0; i < 2 * portion_size; i++) {
 			if (i % 2) {
@@ -76,7 +76,7 @@ void HashTable_Tester::Test(HashTable_Interface& table, size_t factors_count, co
 				BadProbeCount += table.SearchProbe();
 			}
 		}
-		//Конец счётчика
+		//РљРѕРЅРµС† СЃС‡С‘С‚С‡РёРєР°
 		End = high_resolution_clock::now();
 		double dur_lookup = duration_cast<microseconds>(End - Start).count() / (double)portion_size / 1000;
 
@@ -92,7 +92,7 @@ void HashTable_Tester::Test(HashTable_Interface& table, size_t factors_count, co
 		delete[] buffer;
 	}
 
-	//Восстанавливаем состояние потока
+	//Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РїРѕС‚РѕРєР°
 	output.copyfmt(output_state);
 }
 
